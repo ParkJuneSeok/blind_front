@@ -1,10 +1,13 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routers from 'shared/Routers';
+import Container from '@mui/material/Container';
 
 const Root = () => (
     <BrowserRouter>
-        <Routers/>
+        <Container maxWidth="sm">
+            <Routers/>
+        </Container>
     </BrowserRouter>
 );
 
