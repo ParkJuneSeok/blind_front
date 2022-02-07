@@ -9,16 +9,14 @@ import LockIcon from '@mui/icons-material/Lock';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import Button from '@mui/material/Button';
 
-function Join() {
+function Login() {
     const [inputs, setInputs] = useState({
         action : '/member/join',
         memId : '',
-        memPw : '',
-        memPwChk : '',
-        memNick : ''
+        memPw : ''
     })
 
-    const { memId, memPw, memPwChk, memNick } = inputs;
+    const { memId, memPw } = inputs;
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -76,37 +74,9 @@ function Join() {
                            autoComplete={"off"}
                            onChange={onChange}/>
 
-                <TextField id="memPwChk" name={"memPwChk"}
-                           label="비밀번호 확인"
-                           InputProps={{
-                               startAdornment: (
-                                   <InputAdornment position="start">
-                                       <LockIcon />
-                                   </InputAdornment>
-                               ),
-                           }}
-                           type={"password"}
-                           margin={"normal"}
-                           variant="standard"
-                           autoComplete={"off"}
-                           onChange={onChange}/>
-
-                <TextField id="memNick" name={"memNick"}
-                           label="닉네임"
-                           InputProps={{
-                               startAdornment: (
-                                   <InputAdornment position="start">
-                                       <LocalOfferIcon />
-                                   </InputAdornment>
-                               ),
-                           }}
-                           margin={"normal"}
-                           variant="standard"
-                           onChange={onChange}/>
-
                 <Box display={"flex"} sx={{ justifyContent:"flex-end" }}>
-                    <Button variant="outlined" onClick={onValidator}>가입하기</Button>
-                    <Button variant="outlined">취소</Button>
+                    <Button variant="outlined" onClick={onValidator}>로그인</Button>
+                    <Button variant="outlined">회원가입</Button>
                 </Box>
             </FormControl>
 
@@ -114,4 +84,4 @@ function Join() {
     );
 };
 
-export default Join;
+export default Login;
