@@ -11,46 +11,21 @@ import LockIcon from '@mui/icons-material/Lock';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import useForm from "hooks/useForm"
+import validate from "hooks/validate"
 
 function Join() {
-    const [inputs, setInputs] = useState({
-        action : '/member/join',
-        memId : '',
-        memPw : '',
-        memPwChk : '',
-        memNick : ''
-    })
-
-    const { memId, memPw, memPwChk, memNick } = inputs;
-
-    const onChange = (e) => {
-        const { name, value } = e.target;
-
-        setInputs({
-            ...inputs,
-            [name] : value
-        });
-    };
-
-    const onValidator = (e) => {
-        //let fomeData =
-
-        let data = {
-            ...inputs
-        }
-
-        axios.post("http://localhost:8080/member/join", data).then((rtn) => {
-            if(rtn.data.flag) {
-
-            }
-        }).catch((cat) => {
-            console.log(cat);
-        });
-    }
+    const { values, errors, submitting, handleChange, handleSubmit } = useForm({
+        initialValues : { memId: "", memPw : "", memPwChk : "", memNick : ""},
+        onSubmit :(values) => {
+            alert(JSON.stringify(values, null, 2));
+        },
+        validate
+    });
 
     return (
-        <Box sx={{ '& > :not(style)': { m: 1 } }}>
-            <FormControl component={"form"} variant="standard">
+        <Box>
+            <FormControl component={"form"} variant="standard" onSubmit={handleSubmit} noValidate>
                 <TextField id="memId" name={"memId"}
                            label="아이디"
                            InputProps={{
@@ -62,8 +37,10 @@ function Join() {
                            }}
                            margin={"normal"}
                            variant="standard"
-                           onChange={onChange}/>
-
+                           value={values.memId}
+                           onChange={handleChange}
+                           className={errors.memId && "errorInput"}/>
+                {errors.memId && <span className="errorMessage">{errors.memId}</span>}
                 <TextField id="memPw" name={"memPw"}
                            label="비밀번호"
                            InputProps={{
@@ -77,8 +54,10 @@ function Join() {
                            margin={"normal"}
                            variant="standard"
                            autoComplete={"off"}
-                           onChange={onChange}/>
-
+                           value={values.memPw}
+                           onChange={handleChange}
+                           className={errors.memPw && "errorInput"}/>
+                {errors.memPw && <span className="errorMessage">{errors.memPw}</span>}
                 <TextField id="memPwChk" name={"memPwChk"}
                            label="비밀번호 확인"
                            InputProps={{
@@ -92,7 +71,9 @@ function Join() {
                            margin={"normal"}
                            variant="standard"
                            autoComplete={"off"}
-                           onChange={onChange}/>
+                           value={values.memPwChk}
+                           onChange={handleChange}
+                           className={errors.memPwChk && "errorInput"}/>
 
                 <TextField id="memNick" name={"memNick"}
                            label="닉네임"
@@ -105,10 +86,12 @@ function Join() {
                            }}
                            margin={"normal"}
                            variant="standard"
-                           onChange={onChange}/>
+                           value={values.memNick}
+                           onChange={handleChange}
+                           className={errors.memNick && "errorInput"}/>
 
                 <Box display={"flex"} sx={{ justifyContent:"flex-end" }}>
-                    <Button variant="outlined" onClick={onValidator}>가입하기</Button>
+                    <Button type={"submit"} variant="outlined" disabled={submitting}>가입하기</Button>
                     <Button variant="outlined">취소</Button>
                 </Box>
             </FormControl>
