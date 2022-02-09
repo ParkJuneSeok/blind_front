@@ -34,7 +34,7 @@ function Login() {
             ...inputs
         }
 
-        axios.post("http://localhost:8080/member/join", data).then((rtn) => {
+        axios.post("http://localhost/member/loginA", data).then((rtn) => {
             if(rtn.data.flag) {
 
             }
